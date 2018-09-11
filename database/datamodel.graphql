@@ -1,0 +1,31 @@
+type Course {
+  id: ID! @unique
+  code: String!
+  name: String!
+  description: String!
+  lessons: [Lesson!]!
+}
+
+type Lesson {
+  id: ID! @unique
+  description: String!
+  status: Status!
+  type: LessonType
+  sheets: [Sheet!]!
+}
+
+type Sheet {
+  id: ID! @unique
+  description: String!
+}
+
+enum Status {
+  APPROVED
+  REJECTED
+  PENDING
+}
+
+enum LessonType {
+  IQ
+  WORDPROBLEM
+}

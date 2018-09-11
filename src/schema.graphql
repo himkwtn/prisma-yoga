@@ -1,0 +1,36 @@
+type Query {
+  courses: [Course!]!
+  hello: String!
+}
+
+type Course {
+  id: ID!
+  code: String!
+  name: String!
+  description: String!
+  lessons: [Lesson!]!
+}
+
+type Lesson {
+  id: ID!
+  description: String!
+  status: Status!
+  type: LessonType
+  sheets: [Sheet!]!
+}
+
+type Sheet {
+  id: ID!
+  description: String!
+}
+
+enum Status {
+  APPROVED
+  REJECTED
+  PENDING
+}
+
+enum LessonType {
+  IQ
+  WORDPROBLEM
+}

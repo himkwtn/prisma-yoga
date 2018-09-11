@@ -1,0 +1,851 @@
+# source: http://localhost:4466
+# timestamp: Tue Sep 11 2018 18:14:47 GMT+0700 (Indochina Time)
+
+type AggregateCourse {
+  count: Int!
+}
+
+type AggregateLesson {
+  count: Int!
+}
+
+type AggregateSheet {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Course implements Node {
+  id: ID!
+  code: String!
+  name: String!
+  description: String!
+  lessons(where: LessonWhereInput, orderBy: LessonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lesson!]
+}
+
+"""A connection to a list of items."""
+type CourseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CourseEdge]!
+  aggregate: AggregateCourse!
+}
+
+input CourseCreateInput {
+  code: String!
+  name: String!
+  description: String!
+  lessons: LessonCreateManyInput
+}
+
+"""An edge in a connection."""
+type CourseEdge {
+  """The item at the end of the edge."""
+  node: Course!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CourseOrderByInput {
+  id_ASC
+  id_DESC
+  code_ASC
+  code_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CoursePreviousValues {
+  id: ID!
+  code: String!
+  name: String!
+  description: String!
+}
+
+type CourseSubscriptionPayload {
+  mutation: MutationType!
+  node: Course
+  updatedFields: [String!]
+  previousValues: CoursePreviousValues
+}
+
+input CourseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CourseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CourseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CourseSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CourseWhereInput
+}
+
+input CourseUpdateInput {
+  code: String
+  name: String
+  description: String
+  lessons: LessonUpdateManyInput
+}
+
+input CourseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CourseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CourseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CourseWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  code: String
+
+  """All values that are not equal to given value."""
+  code_not: String
+
+  """All values that are contained in given list."""
+  code_in: [String!]
+
+  """All values that are not contained in given list."""
+  code_not_in: [String!]
+
+  """All values less than the given value."""
+  code_lt: String
+
+  """All values less than or equal the given value."""
+  code_lte: String
+
+  """All values greater than the given value."""
+  code_gt: String
+
+  """All values greater than or equal the given value."""
+  code_gte: String
+
+  """All values containing the given string."""
+  code_contains: String
+
+  """All values not containing the given string."""
+  code_not_contains: String
+
+  """All values starting with the given string."""
+  code_starts_with: String
+
+  """All values not starting with the given string."""
+  code_not_starts_with: String
+
+  """All values ending with the given string."""
+  code_ends_with: String
+
+  """All values not ending with the given string."""
+  code_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  lessons_every: LessonWhereInput
+  lessons_some: LessonWhereInput
+  lessons_none: LessonWhereInput
+}
+
+input CourseWhereUniqueInput {
+  id: ID
+}
+
+type Lesson implements Node {
+  id: ID!
+  description: String!
+  status: Status!
+  type: LessonType
+  sheets(where: SheetWhereInput, orderBy: SheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sheet!]
+}
+
+"""A connection to a list of items."""
+type LessonConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [LessonEdge]!
+  aggregate: AggregateLesson!
+}
+
+input LessonCreateInput {
+  description: String!
+  status: Status!
+  type: LessonType
+  sheets: SheetCreateManyInput
+}
+
+input LessonCreateManyInput {
+  create: [LessonCreateInput!]
+  connect: [LessonWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type LessonEdge {
+  """The item at the end of the edge."""
+  node: Lesson!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum LessonOrderByInput {
+  id_ASC
+  id_DESC
+  description_ASC
+  description_DESC
+  status_ASC
+  status_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type LessonPreviousValues {
+  id: ID!
+  description: String!
+  status: Status!
+  type: LessonType
+}
+
+type LessonSubscriptionPayload {
+  mutation: MutationType!
+  node: Lesson
+  updatedFields: [String!]
+  previousValues: LessonPreviousValues
+}
+
+input LessonSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LessonSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LessonSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LessonSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LessonWhereInput
+}
+
+enum LessonType {
+  IQ
+  WORDPROBLEM
+}
+
+input LessonUpdateDataInput {
+  description: String
+  status: Status
+  type: LessonType
+  sheets: SheetUpdateManyInput
+}
+
+input LessonUpdateInput {
+  description: String
+  status: Status
+  type: LessonType
+  sheets: SheetUpdateManyInput
+}
+
+input LessonUpdateManyInput {
+  create: [LessonCreateInput!]
+  connect: [LessonWhereUniqueInput!]
+  disconnect: [LessonWhereUniqueInput!]
+  delete: [LessonWhereUniqueInput!]
+  update: [LessonUpdateWithWhereUniqueNestedInput!]
+  upsert: [LessonUpsertWithWhereUniqueNestedInput!]
+}
+
+input LessonUpdateWithWhereUniqueNestedInput {
+  where: LessonWhereUniqueInput!
+  data: LessonUpdateDataInput!
+}
+
+input LessonUpsertWithWhereUniqueNestedInput {
+  where: LessonWhereUniqueInput!
+  update: LessonUpdateDataInput!
+  create: LessonCreateInput!
+}
+
+input LessonWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LessonWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LessonWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LessonWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  status: Status
+
+  """All values that are not equal to given value."""
+  status_not: Status
+
+  """All values that are contained in given list."""
+  status_in: [Status!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Status!]
+  type: LessonType
+
+  """All values that are not equal to given value."""
+  type_not: LessonType
+
+  """All values that are contained in given list."""
+  type_in: [LessonType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [LessonType!]
+  sheets_every: SheetWhereInput
+  sheets_some: SheetWhereInput
+  sheets_none: SheetWhereInput
+}
+
+input LessonWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createCourse(data: CourseCreateInput!): Course!
+  createSheet(data: SheetCreateInput!): Sheet!
+  createLesson(data: LessonCreateInput!): Lesson!
+  updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
+  updateSheet(data: SheetUpdateInput!, where: SheetWhereUniqueInput!): Sheet
+  updateLesson(data: LessonUpdateInput!, where: LessonWhereUniqueInput!): Lesson
+  deleteCourse(where: CourseWhereUniqueInput!): Course
+  deleteSheet(where: SheetWhereUniqueInput!): Sheet
+  deleteLesson(where: LessonWhereUniqueInput!): Lesson
+  upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
+  upsertSheet(where: SheetWhereUniqueInput!, create: SheetCreateInput!, update: SheetUpdateInput!): Sheet!
+  upsertLesson(where: LessonWhereUniqueInput!, create: LessonCreateInput!, update: LessonUpdateInput!): Lesson!
+  updateManyCourses(data: CourseUpdateInput!, where: CourseWhereInput): BatchPayload!
+  updateManySheets(data: SheetUpdateInput!, where: SheetWhereInput): BatchPayload!
+  updateManyLessons(data: LessonUpdateInput!, where: LessonWhereInput): BatchPayload!
+  deleteManyCourses(where: CourseWhereInput): BatchPayload!
+  deleteManySheets(where: SheetWhereInput): BatchPayload!
+  deleteManyLessons(where: LessonWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+  sheets(where: SheetWhereInput, orderBy: SheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sheet]!
+  lessons(where: LessonWhereInput, orderBy: LessonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lesson]!
+  course(where: CourseWhereUniqueInput!): Course
+  sheet(where: SheetWhereUniqueInput!): Sheet
+  lesson(where: LessonWhereUniqueInput!): Lesson
+  coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
+  sheetsConnection(where: SheetWhereInput, orderBy: SheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SheetConnection!
+  lessonsConnection(where: LessonWhereInput, orderBy: LessonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessonConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Sheet implements Node {
+  id: ID!
+  description: String!
+}
+
+"""A connection to a list of items."""
+type SheetConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SheetEdge]!
+  aggregate: AggregateSheet!
+}
+
+input SheetCreateInput {
+  description: String!
+}
+
+input SheetCreateManyInput {
+  create: [SheetCreateInput!]
+  connect: [SheetWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type SheetEdge {
+  """The item at the end of the edge."""
+  node: Sheet!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum SheetOrderByInput {
+  id_ASC
+  id_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type SheetPreviousValues {
+  id: ID!
+  description: String!
+}
+
+type SheetSubscriptionPayload {
+  mutation: MutationType!
+  node: Sheet
+  updatedFields: [String!]
+  previousValues: SheetPreviousValues
+}
+
+input SheetSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SheetSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SheetSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SheetSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: SheetWhereInput
+}
+
+input SheetUpdateDataInput {
+  description: String
+}
+
+input SheetUpdateInput {
+  description: String
+}
+
+input SheetUpdateManyInput {
+  create: [SheetCreateInput!]
+  connect: [SheetWhereUniqueInput!]
+  disconnect: [SheetWhereUniqueInput!]
+  delete: [SheetWhereUniqueInput!]
+  update: [SheetUpdateWithWhereUniqueNestedInput!]
+  upsert: [SheetUpsertWithWhereUniqueNestedInput!]
+}
+
+input SheetUpdateWithWhereUniqueNestedInput {
+  where: SheetWhereUniqueInput!
+  data: SheetUpdateDataInput!
+}
+
+input SheetUpsertWithWhereUniqueNestedInput {
+  where: SheetWhereUniqueInput!
+  update: SheetUpdateDataInput!
+  create: SheetCreateInput!
+}
+
+input SheetWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SheetWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SheetWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SheetWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+}
+
+input SheetWhereUniqueInput {
+  id: ID
+}
+
+enum Status {
+  APPROVED
+  REJECTED
+  PENDING
+}
+
+type Subscription {
+  course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
+  sheet(where: SheetSubscriptionWhereInput): SheetSubscriptionPayload
+  lesson(where: LessonSubscriptionWhereInput): LessonSubscriptionPayload
+}
